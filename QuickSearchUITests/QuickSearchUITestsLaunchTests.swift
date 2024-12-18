@@ -8,7 +8,6 @@
 import XCTest
 
 final class QuickSearchUITestsLaunchTests: XCTestCase {
-
     override class var runsForEachTargetApplicationUIConfiguration: Bool {
         true
     }
