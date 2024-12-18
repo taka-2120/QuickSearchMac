@@ -12,7 +12,7 @@
 
 ### Install via Homebrew
 
-```
+```shell
 brew install --cask quick-search
 ```
 
