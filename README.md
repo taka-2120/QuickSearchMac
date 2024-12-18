@@ -12,9 +12,11 @@
 
 ### Install via Homebrew
 
-- 
+```
+brew install --cask quick-search
+```
 
-AppStore will be available soon.
+AppStore version will be available soon.
 
 ## How to Use?
 
