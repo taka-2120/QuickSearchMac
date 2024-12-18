@@ -5,28 +5,52 @@
 //  Created by Yu Takahashi on 12/12/24.
 //
 
-import SwiftUI
+import KeyboardShortcuts
 import SwiftData
+import SwiftUI
 
 @main
 struct QuickSearchApp: App {
-    var sharedModelContainer: ModelContainer = {
-        let schema = Schema([
-            Item.self,
-        ])
-        let modelConfiguration = ModelConfiguration(schema: schema, isStoredInMemoryOnly: false)
+    @State private var sharedSearchConfig = SharedSearchConfig.shared
 
-        do {
-            return try ModelContainer(for: schema, configurations: [modelConfiguration])
-        } catch {
-            fatalError("Could not create ModelContainer: \(error)")
+    init() {
+        setShortcuts()
+    }
+
+    private func setShortcuts() {
+        let descriptor = FetchDescriptor<QuickSearch>()
+        let quickSearches = try? ModelContext(sharedModelContainer).fetch(descriptor)
+        guard let quickSearches else { return }
+
+        for search in quickSearches {
+            if search.name.isEmpty || search.url.isEmpty {
+                continue
+            }
+            KeyboardShortcuts.onKeyUp(for: .init("\(search.id)")) {
+                sharedSearchConfig.id = "\(search.id)"
+
+                if let existingController = FloatingSearchController.shared {
+                    existingController.closeWindow()
+                }
+                FloatingSearchController.shared = .init()
+                FloatingSearchController.shared?.showWindow()
+            }
         }
-    }()
+    }
 
     var body: some Scene {
-        WindowGroup {
-            ContentView()
+        MenuBarExtra("", systemImage: "hare.fill") {
+            MenuView()
+                .modelContainer(sharedModelContainer)
         }
-        .modelContainer(sharedModelContainer)
+
+        Settings {
+            SettingsView()
+                .modelContainer(sharedModelContainer)
+        }
+        .persistentSystemOverlays(.visible)
+        .defaultPosition(.center)
+        .windowResizability(.contentSize)
+        .windowLevel(.normal)
     }
 }
