@@ -13,7 +13,7 @@
 ### Install via Homebrew
 
 ```shell
-brew install --cask quick-search
+brew install --cask taka-2120/quick-search/quick-search
 ```
 
 AppStore version will be available soon.
