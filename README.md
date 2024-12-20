@@ -1,8 +1,8 @@
 # Quick Search for Mac
 
-<img src="/docs/resources/01_settings.png" alt="Settings Window" width="300"/>
-
-<img src="/docs/resources/02_menu.png" alt="Menu" width="200"/>
+| Search | Settings | Menu |
+|:-------------------------:|:-------------------------:|:-------------------------:|
+|<img src="/docs/resources/03_window.png" alt="Floating Search Window" width="300"/>|<img src="/docs/resources/01_settings.png" alt="Settings Window" width="300"/>|<img src="/docs/resources/02_menu.png" alt="Menu" width="200"/>|
 
 ## Requirements
 
